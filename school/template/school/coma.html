@@ -1,0 +1,93 @@
+{% extends "school/layout.html" %} 
+{% load humanize %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<section class="section">
+    <div class="container">
+        <div class="row">
+    <ul class="nav-item">
+      <a class="nav-link" href="{% url 'com_a-page' %}">ทั้งหมด</a>
+    </ul>
+  {% for cate in cate %}
+  <ul class="nav-item">
+  
+
+
+    
+    <div class="dropdown">
+      <button class=" btn btn-primary dropdown-toggle "  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+       aria-expanded="false" href="#{{ cate.id}}">{{ cate.name }}&nbsp<i class="fa fa-filter" aria-hidden="true"></i>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {%for c in cate.yearr_set.all%}
+          <center>  <li><a class="dropdown-item" href="?cate={{ c.id }}">{{ c.name }}</a></li></center>  
+          {% endfor %}
+                  </div>
+                  
+    </div>
+  
+</ul>
+  
+  &nbsp
+  {% endfor %}
+
+  <ul class="nav-item">
+  <form  action="{% url 'search' %}" method="get" class="d-flex">
+    <input  class="form-control me-2" type="text" name="query" placeholder="Search" aria-label="Search">
+    &nbsp<button class="btn btn-outline-success" type="submit">Search</button>
+  
+  </form>
+ 
+</ul>
+  <br>
+  <br>
+    <div class="container">
+  <hr>
+    </div>
+
+<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+  
+   <div class="page-wrapper">
+       <div class="blog-top clearfix">
+           <h4 class="pull-left">โครงงานทั้งหมด  <a href="#"><i class="fa fa-rss"></i></a></h4>
+       </div><!-- end blog-top -->
+
+       <div class="blog-list clearfix">
+           {% for u in pro %}
+           <div class="blog-box row">
+               <div class="col-md-4">
+                   <div class="post-media">
+                       <a href="{% url 'blogdetail'  u.id  %}" title="">
+                           <img src="{{u.photo.url}}" alt="" class="img-fluid "   >
+                           <div class="hovereffect"></div>
+                       </a>
+                   </div><!-- end media -->
+               </div><!-- end col -->
+
+               <div class="blog-meta big-meta col-md-8">
+                   <h4><a href=" {% url 'blogdetail'  u.id  %} " title=""><i class="fa fa-book" aria-hidden="true"></i>&nbsp:&nbsp{{u.file_name}}</a></h4>
+                   <h5>ผู้จัดทำ</h5>
+                   <p><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp:&nbsp1.{{ u.ognfirst }}</p>
+                   <p><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp:&nbsp2.{{u.ognsecond}}</p> 
+                   <p><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp:&nbsp3.{{u.ognthird}}</p>
+                  
+                   <small class="firstsmall"><a class="bg-orange" href="tech-category-01.html" title="">{{u.category}}</a> &nbsp /</small> 
+                   <small ><a class="bg-orange" href="tech-category-01.html" title="">&nbsp{{u.categoryyear}}</a></small>
+                   <small><a href="#" title="">{{u.date}}</a></small>
+               
+                   <small><a href="#" title=""><i class="fa fa-eye"></i> {{u.views | intcomma}}</a></small>
+               </div><!-- end meta -->
+           </div><!-- end blog-box -->
+           <br>
+           {% endfor %}
+           
+       </div><!-- end blog-list -->
+   </div><!-- end page-wrapper -->
+
+  </div>
+
+
+   {% endblock %}

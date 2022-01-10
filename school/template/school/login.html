@@ -1,0 +1,37 @@
+{% extends 'school/baseA.html' %}
+
+{% block content %}
+
+
+ 
+         <form method="POST">
+           {% csrf_token %}
+           
+           <div class="login-page">
+
+            <div class="form">
+               
+           <h3>เข้าสู่ระบบ</h3>
+              <form class="login-form">
+                <input type="text" placeholder="อีเมลล์"/id="username" name="username"/>
+                
+                <input type="password" placeholder="รหัสผ่าน"/ id="password" name="password"/>
+                <button>เข้าสู่ระบบ</button>
+                <p class="message"><a href="{% url 'registerpage' %}">ลงทะเบียนบัญชีใหม่</a></p>
+              </form>
+            </div>
+          </div>
+         
+ 
+ 
+          
+
+
+          
+            
+
+
+
+
+
+{% endblock %}

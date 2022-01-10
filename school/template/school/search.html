@@ -1,0 +1,62 @@
+{% extends 'school/layout.html' %}
+
+{% block content %}
+<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+  <div class="page-wrapper">
+      <div class="blog-title-area text-center">
+<div class='container'>
+</div>
+<div class='container'>
+
+
+ <form class="d-flex" method="POST">
+ {% csrf_token %}
+        <input class="form-control me-2" type="text" placeholder="ค้นหานักศึกษา *ใส่รหัสนักศึกษา*" name="search">
+        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+      </form>
+</div>
+<center>
+<h1></h1>
+<h1>ข้อมูลนักศึกษา</h1>
+<h1></h1>
+</center>
+
+<center>
+<div  class="card" style="width: 20rem;" >
+{% if check == 'found' %}
+ <center>
+  {% if result.photo %}
+ 
+ <img src="{{result.photo.url}}" class="card-img-top" alt="..." width=200 >
+  {% else %}
+  <img src="../media/studentphoto/defult.jpg"width=200 >
+  {% endif %}
+ </center>
+
+  <div class="card-body">
+    <h5 class="card-title">ชื่อ : {{result.student_name}}</h5>
+    <p class="card-text">รหัสนักศึกษา : {{result.student_id}}  </p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">ปีการศึกษา : {{result.schoolyaer}}</li>
+    <li class="list-group-item">ชั้น : {{result.level}} </li>
+    <li class="list-group-item">เบอร์นักศึกษา : {{result.student_tel}} </li>
+    <li class="list-group-item">ชื่อผู้ปกครอง : {{result.parent_name}} </li>
+    <li class="list-group-item">เบอร์ผู้ปกครอง : {{result.parent_tel}} </li>
+    <li class="list-group-item">ที่อยู่ : {{result.address}} </li>
+
+{% elif check == 'notfound' %}
+<h1>{{result}} </h1>
+ {% else %} 
+<p>กรอกรหัสนักศึกษาเพื่อค้นหาข้อมูล</p>
+{% endif %}
+</center>
+
+
+
+
+</div><!-- end content -->
+</div><!-- end page-wrapper -->
+</div><!-- end col -->
+  {% endblock %}
+  

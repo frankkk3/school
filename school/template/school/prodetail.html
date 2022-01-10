@@ -1,0 +1,117 @@
+{% extends "school/base.html" %} 
+{% load humanize %}
+{% block content %}
+<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+    <div class="page-wrapper">
+        <div class="blog-title-area text-center">
+           <center> <div class="card-header bg-primary text-white col-6" ><i class="fa fa-folder-open-o" aria-hidden="true"></i>&nbspชื่อ : {{pro.file_name}}</div></center>
+         <hr>
+            <span class="color-red"><a href="tech-category-01.html" title="">{{pro.categoryyear}}</a> :
+            <a href="tech-category-01.html" title="">แผนก : {{pro.category}}</a></span>
+            <div class="blog-meta big-meta">
+                
+                <small><a href="tech-author.html" title="">{{pro.date}}</a></small>
+                <small><a href="#" title=""><i class="fa fa-eye"></i> {{pro.views | intcomma}}</a></small>
+            </div><!-- end meta -->
+
+            <div class="post-sharing">
+                <ul class="list-inline">
+                    <li><a href="#" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i> <span class="down-mobile">Share on Facebook</span></a></li>
+                    <li><a href="#" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i> <span class="down-mobile">Tweet on Twitter</span></a></li>
+                    <li><a href="#" class="gp-button btn btn-primary"><i class="fa fa-google-plus"></i></a></li>
+                </ul>
+            </div><!-- end post-sharing -->
+        </div><!-- end title -->
+
+        <div class="single-post-media">
+            <img src="{{pro.photo.url}}" alt="" class="img-fluid">
+            <div class="hovereffect"></div>
+        </div><!-- end media -->
+        <center><div class="card-header col-8 card card bg-danger text-white text-center" >ข้อมูลโครงงาน</div></center>
+        <br>
+        <hr>
+        <br>
+       <center> <div class="card  col-10">
+        <div class="card-header gp-button btn btn-primary text-white" >บทคัดย่อ</div>
+        <div class="card-body "><h5 class"text-white"></h5></div>
+        <div class="card-body "><a href="{{pro.Abstract.url}}"  class"text-info">**คลิ๊กเพื่อดูบทคัดย่อ&nbsp<i class="fa fa-file-pdf-o" aria-hidden="true"></i></i>**</a></div>
+        <div class="card-body "><h5 class"text-white"></h5></div>
+            <div class="card-header bg-primary text-white" >ผู้จัดทำ</div>
+            <div class="card-body "><h5 class"text-white"></h5></div>
+            <div class="card-body "><h5 class"text-white">1.{{pro.ognfirst}}</h5></div>
+            <div class="card-body"><h5 class"text-white">2.{{pro.ognsecond}}</h5></div>
+            <div class="card-body"><h5 class"text-white">3.{{pro.ognthird}}</h5></div>
+            <div class="card-header bg-info text-white" >ครูที่ปรึกษาโครงงาน</h5></div>
+            <div class="card-body "><h5 class"text-white"></h5></div>
+            <div class="card-body"><h5 class"text-white">{{pro.consultpro}}</h5></div>
+            <div class="card-header bg-warning text-white" >ครูผู้สอนรายวิชาโครงงาน</h5></div>
+            <div class="card-body "><h5 class"text-white"></h5></div>
+            <div class="card-body"><h5 class"text-light">{{pro.teacherpro}}</h5></div>
+            <div class="card-header bg-success text-white" >อัปโหลดโดย</h5></div>
+            <div class="card-body "><h5 class"text-white"></h5></div>
+            <div class="card-body"><h5 class"text-light">{{pro.userupload}}</h5></div>
+
+
+          </div>     </center>
+        <div class="blog-content">  
+           
+              
+               
+
+
+                <hr>
+                {% if user.is_authenticated %}
+                <center>  <a class="btn btn-info" href="{{pro.my_file.url}}">ดาวน์โหลดไฟล์โครงงาน&nbsp<i class="fa fa-download"></i></a></center>
+                <hr>
+                    <center> {% if request.user.first_name == pro.userupload %}
+                         <a href="{% url 'updateProject' pro.id %}" class="btn btn-primary m-1"> แก้ไขข้อมูล&nbsp<i class="fa fa-file"></i> </a>
+                        
+                         <a href="{% url 'deleteProject' pro.id %}" class="gp-button btn btn-primary"> ลบโครงงาน&nbsp<i class="fa fa-trash-o" aria-hidden="true"></i></a>{% endif %} 
+                         </center>
+                         
+              {% endif %}
+              <br>
+              <hr>
+
+              <div class="col-md-12">
+                <div style="margin: 5px padding:2px">
+                   แสดงความคิดเห็น ({{ num_comments }})
+                   <br>
+                   
+                   <p><a class=" btn btn-primary" href="{% url 'add-comment' pro.id %}">  แสดงความคิดเห็น&nbsp<i class="fa fa-commenting" aria-hidden="true"></i></a></p>
+                   <hr>
+                   {% if not pro.comments.all %}
+   
+                       <p>ไม่มีความคิดเห็น..................</p>
+                      
+                       
+                   {% else %}
+       
+                       {% for comment in pro.comments.all %}
+       
+                           <h5><strong>{{ comment.commenter_name }}</strong></h5>
+                           <p>{{ comment.comment_body }}</p>
+                           <p><small>{{ comment.date_added }}</small></p>
+       
+                           
+                           {% if request.user.first_name == comment.commenter_name %}
+                        
+                           
+                           <p ><a class="gp-button btn btn-primary" href="{% url 'delete-comment' pro.id %}">  ลบความคิดเห็น </a></p>
+                           {% endif %}
+                      
+                   
+
+                        <hr>
+                   {% endfor %}
+       
+                   {% endif %}
+                  
+                </div>
+             </div>
+
+
+        </div><!-- end content -->
+    </div><!-- end page-wrapper -->
+</div><!-- end col -->
+{% endblock %}

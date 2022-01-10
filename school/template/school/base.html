@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+{% load static %}
+{% load humanize %}
+<html lang="en">
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Site Metas -->
+    <title>Project Computer Business</title>    
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="{% static 'bt/images/favicon.ico'%}" type="image/x-icon />
+    <link rel="apple-touch-icon" href="{% static 'bt/images/apple-touch-icon.png'  %}  ">
+    <!-- Design fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{% static 'bt/css/bootstrap.css' %}"> 
+   
+    <!-- FontAwesome Icons core CSS -->
+    <link href="{% static 'bt/css/font-awesome.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'bt/css/style.css' %}" rel="stylesheet">
+
+    <!-- Responsive styles for this template -->
+    <link href="{% static 'bt/css/responsive.css' %}" rel="stylesheet">
+
+    <!-- Colors for this template -->
+    <link href="{% static 'bt/css/colors.css' %}" rel="stylesheet">
+
+    <!-- Version Tech CSS for this template -->
+    <link href="{% static 'bt/css/version/tech.css' %}" rel="stylesheet">   
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <header class="tech-header header">
+            <div class="container-fluid">
+                <nav class="navbar navbar-toggleable-md navbar-danger fixed-top bg-danger ">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand" href="{% url 'Index' %}"><img src="{% static 'bt/images/version/banner.png '%}" alt=""></a>
+                    &nbsp &nbsp &nbsp
+                    <div class="collapse navbar-collapse" id="navbarCollapse">  
+                        <ul class="navbar-nav mr-auto">
+                            <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class=" nav-link active bg-inverse" href="{% url 'Index' %}">หน้าแรก<i class="fa fa-home" aria-hidden="true"></i></a>
+                            </li>
+                       
+                            <li class="nav-item">
+                                <a class="nav-link" href="{%  url 'com_a-page' %}">โครงงานทั้งหมด </a>
+                              </li>
+                              {% if user.is_authenticated %}
+                              <li class="nav-item">
+                                <a class="nav-link" href="{%  url 'userup-page' %}">โครงงานของฉัน</a>
+                              </li>
+                          
+                             
+                                      
+                                      <li class="nav-item">
+                                          <a class="nav-link" href="{% url 'addProject' %}">อัปโหลดโครงงาน </a> </li>
+                                          {% endif %}
+                                         
+                                          <li class="nav-item">
+                                            <a class="nav-link" href="{% url    'teacherpage' %}">ครูประจำแผนก </a>
+                                          </li>
+                                          <li class="nav-item">
+                                          <a class="nav-link" href="{% url 'aboutpage' %}">ผู้จัดทำ </a>
+                                        </li>
+                        
+                                    </ul>       
+                        </ul>
+                       
+                            <div>
+                            {% if user.is_authenticated %}
+                                  
+                          <a href="{% url 'editprofile'%}">
+                            <font color="white">ยินดีต้อนรับ &nbsp {{user.first_name}} &nbsp {{user.last_name}}</font>
+                                {% if user.profile.photoprofile %} <img src="{{ user.profile.photoprofile.url }}"width=30 class="rounded">
+                                {% endif %}
+                           
+                           <a class=" gp-button btn btn-primary " href="{% url 'logout' %}"><font color="white">ออกจากระบบ</font> <i class="fa fa-sign-in" aria-hidden="true"></i>  </a>
+                            {%  else %}
+                            <a class=" gp-button btn btn-primary " href="{% url 'registerpage' %}"><font color="white">ลงทะเบียน </font><i class="fa fa-user-plus" aria-hidden="true"></i>   </a>
+                            <a class=" gp-button btn btn-primary " href="{% url 'login' %}"><font color="white">เข้าสู่ระบบ</font><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+                            {% endif %}
+                            </div>
+                         
+                     
+                    </div>
+                </nav>
+            </div><!-- end container-fluid -->
+       
+          
+
+            <br>
+            <br><br>
+            <br>
+        <section class="section">
+            <div class="container">
+                <div class="row">
+                  
+
+                    {% block content %}
+
+                    {% endblock %}
+
+
+                    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                        <div class="sidebar">
+                            <div class="widget">
+                                <h2 class="widget-title">โครงงานยอดนิยม &nbsp<i class="fa fa-thumbs-up"></i></i></h2>
+                                <div class="trend-videos">
+                          
+                                        {% for p in pop%}
+                                        <div class="blog-box">
+                                            <div class="post-media">
+                                                <a href="{% url 'blogdetail' p.id %}" title="">
+                                                    <img src="{{p.photo.url }}" alt="" class="img-fluid">
+                                                    <div class="hovereffect">
+                                                        <span class="videohover"></span>
+                                                    </div><!-- end hover -->
+                                                </a>
+                                            </div><!-- end media -->
+                                            <div class="blog-meta ">
+                                                <h4><a href="{% url 'blogdetail' p.id %}" title=""><i class="fa fa-bookmark" aria-hidden="true"></i>&nbsp{{p.file_name}}<small><a href="#" title="">
+                                                    <i class="fa fa-eye"></i> {{p.views | intcomma}}</a></small></a></h4>
+                                                
+                                            </div><!-- end meta -->
+                                        </div><!-- end blog-box -->
+    
+                                        <hr class="invis">
+    
+
+                                        {%endfor%}
+                              
+                                </div><!-- end videos -->
+                            </div><!-- end widget -->
+
+                            <div class="widget">
+                                <h2 class="widget-title">โครงงานแนะนำ&nbsp<i class="fa fa-heart"></i></h2>
+                                <div class="blog-list-widget">
+                                    <div class="list-group">
+                                        {%for g in guide%}
+                                       
+                                       
+                                        <a href="{% url 'blogdetail' g.id  %}" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="w-100 justify-content-between">
+                                                <img src="{{g.photo.url}}" alt="" class="img-fluid float-left">
+                                                <h5 class="mb-1"><i class="fa fa-bookmark" aria-hidden="true"></i>&nbsp{{g.file_name}}</h5>
+                                                <small>{{g.date}}</small>
+                                            </div>
+                                        </a>
+
+                                        {% endfor %}
+                                    </div>
+                                </div><!-- end blog-list -->
+                            </div><!-- end widget -->
+                            <hr class="invis">
+                        </div><!-- end sidebar -->
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section>
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="widget">
+                            <div class="footer-text text-left">
+                                <a href="index.html"><img src="{% static 'bt/images/version/footer.png '%}" alt="" class="img-fluid"></a>
+                                <p>เว็บไซต์จัดเก็บเอกสารรายวิชาโครงงาน แผนก คอมพิวเตอร์ธุรกิจ วิทยาลัยเทคนิคบัวใหญ่</p>
+                                <div class="social">
+                                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>              
+                                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i class="fa fa-instagram"></i></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Google Plus"><i class="fa fa-google-plus"></i></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i class="fa fa-pinterest"></i></a>
+                                </div>
+                                
+                            </div><!-- end footer-text -->
+                        </div><!-- end widget -->
+                    </div><!-- end col -->
+                    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <h2 class="widget-title">ติดต่อเรา</h2>
+                            <div class="link-widget">
+                                <ul>
+                                    <li><a href="https://web.facebook.com/profile.php?id=100010114005989"><i class="fa fa-facebook"></i> &nbsp: Kittipong Pabudda</a></li>
+                                    <li><a href="https://www.instagram.com/fr_rank.k/"><i class="fa fa-instagram"></i> : fr_rank.k</a></li>
+                                    <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i> : hjog717@gmail.com</a></li>
+                                    <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i> : 096-3944908</a></li>
+                                    
+                                </ul>
+                            </div><!-- end link-widget -->
+                        </div><!-- end widget -->
+                    </div><!-- end col -->
+
+                    <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <h2 class="widget-title">ระดับชั้น</h2>
+                            <div class="link-widget">
+                                <ul>
+                                    <li><a href="#">ปวช.3</a></li>
+                                    <li><a href="#">ปวส.2</a></li>
+                                   
+                                </ul>
+                            </div><!-- end link-widget -->
+                        </div><!-- end widget -->
+                    </div><!-- end col -->
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <br>
+                        <div class="copyright">&copy;จัดทำโดย นายกิตติพงษ์ พาบุดดา  &nbsp&nbsp  นางสาวกรรณิการ์ กังขุนทด</a>.</div>
+                      
+                    </div>
+                </div>
+            </div><!-- end container -->
+        </footer><!-- end footer -->
+        <div class="dmtop">Scroll to Top</div>
+        
+    </div><!-- end wrapper -->
+
+    <!-- Core JavaScript
+    ================================================== -->
+    <script src="{% static 'bt/js/jquery.min.js'%}"></script>
+    <script src="{% static 'bt/js/tether.min.js'%}"></script>
+    <script src="{% static 'bt/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bt/js/custom.js'%}"></script>
+    
+</body>
+</html>

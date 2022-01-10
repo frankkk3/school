@@ -1,0 +1,115 @@
+ {% extends "school/layout.html" %} 
+ {% load humanize %}
+ {% load static %}
+
+ {% block content %}
+
+ <section class="section first-section">
+    <br>
+<br>  
+<div id="demo" class="carousel slide" data-ride="carousel">
+
+<!-- Indicators -->
+<ul class="carousel-indicators">
+  <li data-target="#demo" data-slide-to="0" class="active"></li>
+  <li data-target="#demo" data-slide-to="1"></li>
+  <li data-target="#demo" data-slide-to="2"></li>
+</ul>
+
+<!-- The slideshow -->
+<div class="carousel-inner">
+  <div class="carousel-item active  ">
+    <img class="d-block mx-auto responsive" max-width="100%" max-height="100%" src="{% static 'bt/images/5.png' %}" alt="Los Angeles">
+  </div>
+  <div class="carousel-item ">
+    <img class="d-block mx-auto responsive" max-width="100%" max-height="100%" src="{% static 'bt/images/4.png' %}" alt="Chicago">
+  </div>
+  <div class="carousel-item ">
+    <img class="d-block mx-auto responsive" max-width="100%" max-height="100%" src="{% static 'bt/images/3.png' %}" alt="New York">
+  </div>
+</div>
+
+<!-- Left and right controls -->
+<a class="carousel-control-prev" href="#demo" data-slide="prev">
+  <span class="carousel-control-prev-icon"></span>
+</a>
+<a class="carousel-control-next" href="#demo" data-slide="next">
+  <span class="carousel-control-next-icon"></span>
+</a>
+<br>
+
+</div>
+</section>
+
+<center>
+  <div class="col-md-9">
+  
+    <marquee class="text-dark" direction="left"><i class="fa fa-cloud"></i> เว็บไซต์จัดเก็บวิชาโครงงาน แผนกคอมพิวเตอร์ธุรกิจ <i class="fa fa-cloud"></i> #กรุณาลงทะเบียนและเข้าสู่ระบบเพื่ออัปโหลดโครงงานและดาวน์โหลดโครงงานต่างๆ
+      <i class="fa fa-bell"></i> </marquee>
+  
+  </div>
+  </center>
+ <section class="section ">
+  
+    <div class="container">
+        <div class="row">
+ <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+    <div class="page-wrapper">
+        <div class="blog-top clearfix">
+            <h4 class="pull-left widget-title">โครงงานล่าสุด <a href="#"><i class="fa fa-rss"></i>&nbsp&nbsp&nbsp</a> <i class="fa fa-hand-o-right" aria-hidden="true"></i>&nbsp
+              <small ><a class="text-info" href="{% url 'com_a-page' %}" title="">คลิกที่นี่เพื่อดูและค้นหาโครงงาน</a></small><i class="fa fa-hand-o-left" aria-hidden="true"></i></i></h4>
+        </div><!-- end blog-top -->
+
+        <div class="blog-list clearfix">
+            {% for u in up %}
+            <div class="blog-box row">
+                <div class="col-md-4">
+                    <div class="post-media">
+                        <a href="{% url 'blogdetail'  u.id  %}" title="">
+                            <img src="{{u.photo.url}}" alt="" class="img-fluid "   >
+                            <div class="hovereffect"></div>
+                        </a>
+                    </div><!-- end media -->
+                </div><!-- end col -->
+
+                <div class="blog-meta big-meta col-md-8">
+                    <h4><a href=" {% url 'blogdetail'  u.id  %} " title=""><i class="fa fa-book" aria-hidden="true"></i>&nbsp:&nbsp{{u.file_name}}</a></h4>
+                    <h5>ผู้จัดทำ</h5>
+                    <p><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp:&nbsp1.{{ u.ognfirst }}</p>
+                    <p><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp:&nbsp2.{{u.ognsecond}}</p> 
+                    <p><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp:&nbsp3.{{u.ognthird}}</p>
+                   
+                    <small class="firstsmall"><a class="bg-orange" href="tech-category-01.html" title="">{{u.category}}</a> &nbsp /</small> 
+                    <small ><a class="bg-orange" href="tech-category-01.html" title="">&nbsp{{u.categoryyear}}</a></small>
+                    <small><a href="#" title="">{{u.date}}</a></small>
+                
+                    <small><a href="#" title=""><i class="fa fa-eye"></i> {{u.views | intcomma}}</a></small>
+                </div><!-- end meta -->
+            </div><!-- end blog-box -->
+            <br>
+            {% endfor %}
+            
+        </div><!-- end blog-list -->
+    </div><!-- end page-wrapper -->
+
+    <hr class="invis">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="Page navigation">
+                {%if up.paginator.num_pages > 1  %}
+                <ul class="pagination justify-content-start">
+                   {% for page_number in up.paginator.page_range %}
+                   <li class="page-item"><a class="page-link" href="?page={{page_number}}">{{page_number}}</a></li>
+                 {%endfor%}
+                </ul>
+                {% endif %}
+            </nav>
+        </div><!-- end col -->
+    </div><!-- end row -->
+</div>
+
+
+
+
+
+                    {% endblock %}

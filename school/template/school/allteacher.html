@@ -1,0 +1,41 @@
+{% extends "school/base.html" %} 
+{% load humanize %}
+{% block content %}
+<div class="container">
+    <hr>
+      </div>
+<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+   <div class="page-wrapper">
+       <div class="blog-top clearfix">
+           <h4 class="pull-left">ครูประแผนก <a href="#"><i class="fa fa-rss"></i></a></h4>
+       </div><!-- end blog-top -->
+
+       <div class="blog-list clearfix">
+           {% for t in teacher %}
+           <div class="blog-box row">
+               <div class="col-md-4">
+                   <div class="post-media">
+                       <a href="" title="">
+                           <img src="{{t.photo.url}}" alt="" class="img-fluid "   >
+                           <div class="hovereffect"></div>
+                       </a>
+                   </div><!-- end media -->
+               </div><!-- end col -->
+
+               <div class="blog-meta  col-md-8 ">
+                   <h4><a href="" title="">ชื่อ-สกุล : {{t.teacher_name}}</a></h4><hr>
+                   <h4>ตำแหน่ง</h4><span class="bg-orange">&nbsp: {{t.position}}<a href="" title=""> </a></span>
+                   <h4>ที่ปรึกษา</h4><span class="bg-orange">&nbsp: {{t.level}}/{{t.class_Number}}<a href="" title=""> </a></span>
+                   <h4>ตำแหน่ง</h4><span class="bg-orange">{{t.teacher_tel}}<a href="" title=""> </a></span>
+                 
+               </div><!-- end meta -->
+           </div><!-- end blog-box -->
+           <br>
+           {% endfor %}
+           
+       </div><!-- end blog-list -->
+   </div><!-- end page-wrapper -->
+  
+</div><!-- end col -->
+
+                   {% endblock %}

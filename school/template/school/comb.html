@@ -1,0 +1,68 @@
+{% extends "school/layout.html" %} 
+{% load humanize %}
+{% block content %}
+
+
+<div class="jumbtron">
+    <h3>categories</h3>
+    <ul>
+        <li>
+            <a href="{%url 'com_b-page'%}">all</a>
+            {% for x in categories %}
+            <li>
+                <a href="{{x.get_absolute_url}}">{{x.name}}
+                </li>
+                {% endfor %}
+            </li>
+        </ul>
+    </div>
+    <div>
+        {% if category %}{{category.name}}{% else %}ALL-STORY{%endif%}
+        
+
+        
+<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+   <div class="page-wrapper">
+       <div class="blog-top clearfix">
+           <h4 class="pull-left">โครงงานทั้งหมด <a href="#"><i class="fa fa-rss"></i></a></h4>
+       </div><!-- end blog-top -->
+
+       <div class="blog-list clearfix">
+    
+        {% for u in cc %}
+   
+           <div class="blog-box row">
+               <div class="col-md-4">
+                   <div class="post-media">
+                       <a href="{% url 'blogdetail'  u.id  %}" title="">
+                           <img src="{{u.photo.url}}" alt="" class="img-fluid "   >
+                           <div class="hovereffect"></div>
+                       </a>
+                   </div><!-- end media -->
+               </div><!-- end col -->
+
+               <div class="blog-meta big-meta col-md-8">
+                   <h4><a href=" {% url 'blogdetail'  u.id  %} " title="">{{u.file_name}}</a></h4>
+                   <h5>ผู้จัดทำ</h5>
+                   <p>{{ u.ognfirst }}</p>
+                   <p>{{u.ognsecond}}</p> 
+                   <p>{{u.ognthird}}</p>
+                  
+                   <small class="firstsmall"><a class="bg-orange" href="tech-category-01.html" title="">{{u.categorylevel}}</a> &nbsp /</small> 
+                   <small ><a class="bg-orange" href="tech-category-01.html" title="">&nbsp{{u.categoryyear}}</a></small>
+                   <small><a href="#" title="">{{u.date}}</a></small>
+               
+                   <small><a href="#" title=""><i class="fa fa-eye"></i> {{u.views | intcomma}}</a></small>
+               </div><!-- end meta -->
+           </div><!-- end blog-box -->
+           <br>
+           
+        
+           {% endfor %}
+           
+       </div><!-- end blog-list -->
+   </div><!-- end page-wrapper -->
+ 
+</div><!-- end col -->
+
+                   {% endblock %}

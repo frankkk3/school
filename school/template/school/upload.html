@@ -1,0 +1,86 @@
+{% extends 'school/baseA.html' %}
+
+{% block content %}
+
+
+<div class="container"> 
+
+<form method="POST"enctype="multipart/form-data" action="">
+    
+<div class="form-group w-50">
+    <label for="{{ form.file_name.id_for_label }}">ชื่อโครงการ</label>
+    {{ form.file_name}}
+  </div>
+
+
+  
+
+
+  <div class="form-group w-50">
+    <label for="{{ form.levelf.id_for_label }}">ระดับชั้น &nbsp&nbsp&nbsp&nbsp: </label>
+    {{  form.levelf}}
+  
+  </div>
+  <div class="form-group w-50">
+    <label for="{{ form.year.id_for_label }}">ปีการศึกษา :</label>
+    {{  form.year }}
+  
+  </div>
+
+  <div class="form-group w-50">
+    <label for="{{ form.organizefirst.id_for_label }}">ชื่อผู้จัดทำ ลำดับที่ 1.</label>
+    {{ form.organizefirst}}
+    <p>&nbsp&nbsp&nbsp** ใส่ชื่อหัวหน้าโครงการ **</p>
+  </div>
+
+
+
+  <div class="form-group w-50">
+    <label for="{{ form.organizesecond.id_for_label }}">ชื่อผู้จัดทำ ลำดับที่ 2.</label>
+    {{ form.organizesecond}}
+  </div>
+
+
+
+  <div class="form-group w-50">
+    <label for="{{ form.organizethird.id_for_label }} ">ชื่อผู้จัดทำ ลำดับที่ 3.  </label>
+    {{ form.organizethird}}
+    <p>&nbsp&nbsp&nbsp**หากไม่มีกรุณาใส่เครื่องหมาย  - **</p>
+  </div>
+
+
+    <div class="form-group w-50">
+      <label for="{{ form.files.id_for_label }}">อัปโหลดไฟล์โครงการ</label>
+      {{ form.files}}
+      <p>&nbsp&nbsp&nbsp** กรุณารวมไฟล์โครงการทั้งหมดเป็นไฟล์ .zip **</p>
+    </div>
+
+
+
+    <div class="form-group w-50">
+      <label for="{{ form.photo.id_for_label }}">อัปโหลดรูป</label>
+      {{ form.photo}}
+    </div>
+    <button type="submit" class="btn btn-primary">อัปโหลด</button>
+  </div>
+</div>
+<br>
+<br>
+<br>
+
+  
+
+
+
+  {% csrf_token %}
+    
+    
+</form>
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'school/baseA.html' %}
+{% load humanize %}
+{% block content %}
+
+    <h2 class="text center" style="margin-left: 20px;"> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp ผลลัพธ์การค้นหา :  </h5>
+
+        <hr>
+        <center>
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-6">
+        <li class="nav-item">
+            <form  action="{% url 'search' %}" method="get" class="d-flex">
+              <input  class="form-control me-2" type="text" name="query" placeholder="ค้นหาชื่อโครงงาน" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">ค้นหา</button>
+            
+            </form>
+            </li>
+        </div>
+    </center>
+        <div class="container">
+
+            <div class="row justify-content-center m-4">
+
+                {% if project %}
+    
+                <div class="blog-list clearfix">
+                    {% for u in project %}
+                    <div class="blog-box row">
+                        <div class="col-md-4">
+                            <div class="post-media">
+                                <a href="{% url 'blogdetail'  u.id  %}" title="">
+                                    <img src="{{u.photo.url}}" alt="" class="img-fluid "   >
+                                    <div class="hovereffect"></div>
+                                </a>
+                            </div><!-- end media -->
+                        </div><!-- end col -->
+         
+                        <div class="blog-meta big-meta col-md-8">
+                            <h4><a href=" {% url 'blogdetail'  u.id  %} " title=""><i class="fa fa-book" aria-hidden="true"></i>&nbsp:&nbsp{{u.file_name}}</a></h4>
+                            <h5>ผู้จัดทำ</h5>
+                            <p><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp:&nbsp1.{{ u.ognfirst }}</p>
+                            <p><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp:&nbsp2.{{u.ognsecond}}</p> 
+                            <p><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp:&nbsp3.{{u.ognthird}}</p>
+                           
+                            <small class="firstsmall"><a class="bg-orange" href="tech-category-01.html" title="">{{u.category}}</a> &nbsp /</small> 
+                            <small ><a class="bg-orange" href="tech-category-01.html" title="">&nbsp{{u.categoryyear}}</a></small>
+                            <small><a href="#" title="">{{u.date}}</a></small>
+                        
+                            <small><a href="#" title=""><i class="fa fa-eye"></i> {{u.views | intcomma}}</a></small>
+                        </div><!-- end meta -->
+                    </div><!-- end blog-box -->
+                    <br>
+                    {% endfor %}
+        
+                {% else %}
+                     <p>No Products available </p>
+                {% endif %}
+    
+            </div>
+
+        </div>
+
+
+{% endblock %}
