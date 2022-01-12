@@ -1,7 +1,7 @@
 
 from django.db import models
 from django.db.models.expressions import F
-from years.models import levelschool, yearsschool
+
 from PIL import Image
 from django.urls import reverse
 # Create your models here.
